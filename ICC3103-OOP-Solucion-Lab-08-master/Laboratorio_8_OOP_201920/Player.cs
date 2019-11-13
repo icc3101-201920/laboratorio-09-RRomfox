@@ -10,6 +10,11 @@ namespace Laboratorio_8_OOP_201920
     [Serializable]
     public class Player: IAttackPoints
     {
+        //Implementar en la clase Player:
+        public delegate void EventHandler<PlayerEventArgs>(object source, PlayerEventArgs args);
+        public event EventHandler<PlayerEventArgs> CardPlayed;
+        
+
         //Constantes
         private const int LIFE_POINTS = 2;
         private const int START_ATTACK_POINTS = 0;
@@ -99,6 +104,7 @@ namespace Laboratorio_8_OOP_201920
             Card tempCard = CreateTempCard(cardId);
             hand.AddCard(tempCard);
             deck.DestroyCard(cardId);
+            OnCardPlayed(tempCard);
         }
         public void PlayCard(int cardId, EnumType buffRow = EnumType.None)
         {
@@ -121,6 +127,7 @@ namespace Laboratorio_8_OOP_201920
                 }
             }
             hand.DestroyCard(cardId);
+            OnCardPlayed(tempCard);
         }
 
         public void ChangeCard(int cardId)
@@ -185,6 +192,15 @@ namespace Laboratorio_8_OOP_201920
                 attackPoints += board.GetAttackPoints(e)[Id];
             }
             return new int[] { attackPoints };
+        }
+
+        //Implementar en la clase Player:
+        public void OnCardPlayed(Card card)
+        {
+            if (CardPlayed != null)
+            {
+                CardPlayed(this, new PlayerEventArgs() { Card = card});
+            }
         }
     }
 }
