@@ -202,5 +202,6 @@ namespace Laboratorio_8_OOP_201920
                 CardPlayed(this, new PlayerEventArgs() { Card = card});
             }
         }
+
     }
 }

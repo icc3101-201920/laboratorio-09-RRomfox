@@ -27,6 +27,55 @@ namespace Laboratorio_8_OOP_201920
         public static void ApplyEffect(Card playedCard, Player activePlayer, Player opponent, Board board)
         {
             //Recomendación: Utilice switch(playedCard.CardEffect) para definir los distintos efectos.
+            switch (playedCard.CardEffect)
+            {
+                case EnumEffect.bitingFrost:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (board.PlayerCards[i].ContainsKey(EnumType.melee))
+                        {
+                            foreach (CombatCard card in board.PlayerCards[i][EnumType.melee])
+                            {
+                                card.AttackPoints = 1;
+                            }
+                        }
+                    }
+                    break;
+
+                case EnumEffect.impenetrableFog:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (board.PlayerCards[i].ContainsKey(EnumType.range))
+                        {
+                            foreach (CombatCard card in board.PlayerCards[i][EnumType.range])
+                            {
+                                card.AttackPoints = 1;
+                            }
+                        }
+                    }
+                    break;
+
+                case EnumEffect.torrentialRain:
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (board.PlayerCards[i].ContainsKey(EnumType.longRange))
+                        {
+                            foreach (CombatCard card in board.PlayerCards[i][EnumType.longRange])
+                            {
+                                card.AttackPoints = 1;
+                            }
+                        }
+                    }
+                    break;
+
+                case EnumEffect.clearWeather:
+                    board.WeatherCards = new List<SpecialCard>();
+                    break;
+
+                case EnumEffect.none:
+                    break;
+
+            }
         }
     }
 }
